@@ -1,0 +1,32 @@
+<!-- templates/display_image.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed Image</title>
+    <style>
+        .responsive-image {
+            max-width: 100%;
+            /* Make the image take up the full width of its container */
+            max-height: 80vh;
+            /* Limit the height to 80% of the viewport height */
+            height: auto;
+            /* Keep the aspect ratio */
+            display: block;
+            /* Optional: helps center the image if needed */
+            margin: 0 auto;
+            /* Optional: centers the image horizontally */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Processed Image</h1>
+    <img class="responsive-image" src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Processed Image">
+    <br>
+    <a href="{{ url_for('upload_form') }}">Upload another image</a>
+</body>
+
+</html>
