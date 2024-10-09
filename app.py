@@ -1,12 +1,12 @@
-
-
+# app.py
 from flask import Flask, request, render_template, redirect, url_for
 import os
+from main import process_image
 
 app = Flask(__name__)
 
 # Set the upload folder and allowed extensions
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -32,7 +32,12 @@ def upload_image():
     if file and allowed_file(file.filename):
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
-        return render_template('display_image.html', filename=file.filename)
+
+        # Process the image and get the filename of the processed image
+        processed_image_name = process_image(file_path)
+
+        # Pass only the filename to the template
+        return render_template('display_image.html', filename=processed_image_name)
     return redirect(request.url)
 
 if __name__ == '__main__':
